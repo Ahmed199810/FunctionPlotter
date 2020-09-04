@@ -25,25 +25,28 @@ def show_message(msg):
     dialog.exec_()
 
 # a function to convert string input to equation command
+def validate_input(eqn):
+    for word in re.findall('[a-zA-Z_]+', eqn):
+        if word not in allowed_words:
+            show_message("Enter a function of x only")
+            return False
+    return True
+
 def convert_string_to_equation(eqn):
     #check for white spaces
     eqn = eqn.replace(" ", "")
     txt_eqn.setText(eqn)
 
-    for word in re.findall('[a-zA-Z_]+', eqn):
-        if word not in allowed_words:
-            raise ValueError(
-                '"{}" is not allowed'.format(word)
-            )
+    # validate the input
+    if validate_input(eqn):
+        for old, new in replacements.items():
+            eqn = eqn.replace(old, new)
 
-    for old, new in replacements.items():
-        eqn = eqn.replace(old, new)
+        def func(x):
+            return eval(eqn)
 
-    def func(x):
-        return eval(eqn)
-
-    return func
-
+        return func
+    return ""
 
 # function to call the plotter
 def updateCanvas(can):
@@ -53,13 +56,14 @@ def updateCanvas(can):
 
 def plot_equation(eqn, min_v, max_v):
     y = convert_string_to_equation(eqn)
-    x = np.linspace(float(min_v), float(max_v), 250)
-    fig = Figure(figsize=(600, 600), dpi=70, facecolor=(1, 1, 1), edgecolor=(0, 0, 0))
-    ax = fig.add_subplot(111)
-    ax.plot(x, y(x))
-    can = FigureCanvas(fig)
-    layout.replaceWidget(canvas ,can)
-    updateCanvas(can)
+    if y != "":
+        x = np.linspace(float(min_v), float(max_v), 250)
+        fig = Figure(figsize=(600, 600), dpi=70, facecolor=(1, 1, 1), edgecolor=(0, 0, 0))
+        ax = fig.add_subplot(111)
+        ax.plot(x, y(x))
+        can = FigureCanvas(fig)
+        layout.replaceWidget(canvas, can)
+        updateCanvas(can)
 
 
 
