@@ -5,14 +5,23 @@
 ## Preview
 <p align="center">
   Main Screen
+  <br/>
   <img src="screens/img1.PNG" width="300" title="hover text">
   Empty Input validation
+  <br/>
   <img src="screens/img2.PNG" width="300" title="hover text">
+  <br/>
   Plotting Data
+  <br/>
   <img src="screens/img3.PNG" width="300" title="hover text">
+  <br/>
   <img src="screens/img4.PNG" width="300" title="hover text">
+  <br/>
   Validate Equation Format
+  <br/>
   <img src="screens/img5.PNG" width="300" title="hover text">
+  <br/>
   Validate white space input
+  <br/>
   <img src="screens/img6.PNG" width="300" title="hover text">
 </p>
